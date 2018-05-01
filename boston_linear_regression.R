@@ -23,3 +23,14 @@ summary(model1)
 
 par(mfrow = c(2,2))
 plot(model1)
+  #Interpret Model1
+  #F-statistic=115.1>>1 & p-value << 0: There's a relationship between Dependent & Independent variables 
+  #p-value on each var: Small p-val <=> significant
+  #R-squared val closer to 1 <=> explain more
+
+#Building Model2 remove insignificant variables
+model2 <- lm(log(medv) ~ .-zn-indus-age, data = train)
+summary(model2)
+
+par(mfrow = c(2,2))
+plot(model2)
