@@ -34,3 +34,18 @@ summary(model2)
 
 par(mfrow = c(2,2))
 plot(model2)
+
+#Building Model3 with non-linearity
+model3 = lm(log(medv)~crim+chas+nox+rm+dis+rad+tax+ptratio+
+              black+lstat+ I(crim^2)+ I(chas^2)+I(nox^2)+ I(rm^2)+ I(dis^2)+ 
+              I(rad^2)+ I(tax^2)+ I(ptratio^2)+ I(black^2)+ I(lstat^2), data=train)
+summary(model3)
+
+#Update Model3 by removing non-necessary variables
+model4=update(model3, ~.-nox-rad-tax-I(crim^2)-I(chas^2)-I(rad^2)-
+                I(tax^2)-I(ptratio^2)-I(black^2))
+summary(model4)
+
+#Predict test using Model4
+pred1 <- predict(model4, newdata = test)
+plot(test$medv, exp(pred1))
